@@ -1,10 +1,33 @@
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-	<script scr="script.js"></script>
+	<script src="script.js"></script>
 	<title>Library</title>
 </head>
 <body ng-app>
-{{1+2}}
+<div ng-controller="LibraryCtrl">
+	<h1>Create A Library</h1>
+	<form ng-submit="createLibrary()"> <!-- form that creates new libraries -->
+		<input type="text" ng-model="newLibrary.name" placeholder="Library Name"></input><br>
+		<textarea ng-model="newLibrary.description" placeholder="Library Description"></textarea><br>
+		<button>create library</button>
+	</form>
+	<div ng-repeat="library in libraries">
+		<h2 ng-dblclick="destroyLibrary(library)">{{library.name}}</h2>
+		<p>Description: {{library.description}}</p>
+		<div ng-controller="BooksCtrl">
+			<h3>Add Books</h3>
+			<form ng-submit="addBook()">
+				<input type="text" ng-model="newBook.title" placeholder="Title"></input>
+				<input type="text" ng-model="newBook.author" placeholder="Author"></input>
+				<button>add book</button>
+			</form>
+			<div ng-repeat="book in library.books">
+				<h4><i>{{book.title}}</i></h4>
+				<p>by {{book.author}}</p>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
